@@ -28,6 +28,4 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-const server = http.createServer(app);
-
-server.listen(port);
+module.exports = app;
