@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    p Hello world
+
+    each channel in channels
+        button Borrar mensajes de #{channel.name}
