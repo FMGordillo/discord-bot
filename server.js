@@ -1,12 +1,12 @@
 require("dotenv").config();
 
-const http = require("http");
 const path = require("path");
 const createError = require("http-errors");
 const bot = require("./utils/botInit");
-const app = require("express")();
-const port = process.env.PORT || 3000;
+const express = require("express");
+const app = express();
 
+app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 

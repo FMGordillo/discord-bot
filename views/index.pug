@@ -1,7 +1,14 @@
 extends layout
 
 block content
-    p Hello world
+    h1 FMG Bot - Uso privado
 
-    each channel in channels
-        button Borrar mensajes de #{channel.name}
+    if !isLoaded
+        p Nada para mostrar :'v
+    else
+        hr
+        section
+            h2 Canales
+            p En construcción
+            each channel in channels
+                button(disabled=true) Borrar mensajes de #{channel.name}
