@@ -9,10 +9,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --exec npm start"
+    "dev": "nodemon -L --exec npm start"
   },
   "devDependencies": {
-    "dotenv": "^8.0.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
@@ -20,6 +19,7 @@
     "cors": "^2.8.5",
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
+    "google-translate-api": "^2.3.0",
     "node-opus": "^0.3.2",
     "pug": "^2.0.4"
   }

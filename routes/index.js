@@ -2,8 +2,7 @@ const router = require("express").Router();
 
 module.exports = bot => {
   router.get("/", (req, res) => {
-    console.log(bot.channels);
-
+    // console.log(bot.channels);
     if (bot.channels.size <= 0) {
       res.render("index", { title: "Welcome", isLoaded: false });
     } else {

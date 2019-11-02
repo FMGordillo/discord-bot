@@ -1,14 +1,15 @@
-require("dotenv").config();
-
 const path = require("path");
 const createError = require("http-errors");
-const bot = require("./utils/botInit");
+const bot = require("./bot");
 const express = require("express");
 const app = express();
 
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+// TODO for DB!!!!
+// console.log("IS THIS WORKING", process.env.IS_DOCKER_ENV);
 
 const indexRoute = require("./routes/index")(bot);
 
