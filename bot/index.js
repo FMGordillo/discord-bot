@@ -2,7 +2,16 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 const talkingToBot = require("./talking-to-bot");
+const shuffle = require("./random");
 const netflixSuggestionsAPI = require("./netflix-suggestions");
+
+const prefix = "papurri";
+
+const ACTIONS = {
+  // aiuda: help,
+  nefli: netflixSuggestionsAPI,
+  random: shuffle
+};
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -16,16 +25,19 @@ client.on("message", msg => {
     msg.reply("PARA ESO EXISTE EL OTRO CANAL, MOGOLIC@");
   }
 
-  const prefix = "papurri";
-
   // Exit!!
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  const [_, action] = msg.content.split(" ");
+  if (!action || action == "" || !Object.keys(ACTIONS).includes(action)) return;
 
-  if (msg.content.includes("netflix")) {
-    netflixSuggestionsAPI().then(({ data }) => {
-      msg.reply(`Te recomiendo **${data.title}** \n > ${data.overview}`);
-    });
-  }
+  ACTIONS[action](msg)
+    .then(response => msg.reply(response))
+    .catch(error =>
+      msg.reply(
+        `Hubo un error con el comando **${action}**:
+      \`${error.message}\``
+      )
+    );
 
   if (
     new RegExp("^papurri metete").test(msg) &&
