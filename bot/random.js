@@ -16,7 +16,24 @@ async function shuffle({ content }) {
     result = result.slice(removeThis.length);
   }
 
-  return `Tuki, apareció **\`${result.trim()}\`**`;
+  return `${randomCongrats()}, apareció **\`${result.trim()}\`**`;
+}
+
+function randomCongrats() {
+  const congrats = [
+    "bueeenaaa",
+    "bien ahi",
+    "tuki",
+    "apa apa",
+    "WENA",
+    "APA",
+    "eu que onda",
+    "que paso aca",
+    "mmmm",
+    "hmmm"
+  ];
+  const randomIndex = Math.round(Math.random() * (congrats.length - 1));
+  return congrats[randomIndex];
 }
 
 module.exports = shuffle;
