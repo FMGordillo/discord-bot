@@ -16,6 +16,9 @@ async function shuffle({ content }) {
     result = result.slice(removeThis.length);
   }
 
+  if (result.trim() == "")
+    return "Tenés que escribir algo de opciones, mogolico >:v";
+
   return `${randomCongrats()}, apareció **\`${result.trim()}\`**`;
 }
 
@@ -30,7 +33,8 @@ function randomCongrats() {
     "eu que onda",
     "que paso aca",
     "mmmm",
-    "hmmm"
+    "hmmm",
+    "haber"
   ];
   const randomIndex = Math.round(Math.random() * (congrats.length - 1));
   return congrats[randomIndex];
