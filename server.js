@@ -1,7 +1,9 @@
+require("dotenv").config();
 const path = require("path");
-const createError = require("http-errors");
 const bot = require("./bot");
 const express = require("express");
+const createError = require("http-errors");
+
 const app = express();
 
 app.use(express.static("public"));
