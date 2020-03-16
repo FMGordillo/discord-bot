@@ -4,7 +4,8 @@ const client = new Discord.Client();
 const watson = require("./watson");
 const shuffle = require("./random");
 const talkingToBot = require("./talking-to-bot");
-const netflixSuggestionsAPI = require("./netflix-suggestions");
+const netflixSuggestionsAPI = require("./netflix-suggestions").default;
+const weather = require("./weather");
 
 const prefix = "papurri";
 const assistantId = process.env.WATSON_ASSISTANT_ID;
@@ -41,9 +42,35 @@ client.on("message", async msg => {
 
   // Exit!!
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+    /*AUTHoR: SANTU
+  ------
+  ------
+  Yo considero que esto va a tener que hacerse despuesde chequear lo del session Id, y obviamente
+  lo del session Id deberia estar todo en una funcion pero eso lo intento despues
 
+  Tipo, siempre que alguien solicite al bot PARA LO QUE SEA, que primero haga eso del sessionId
+  y dsp procese la petición
+  por ejemplo:
+
+  1) papurri bot <alguna frase o algo>
+  2) se ejecuta un metodo llamado actualizarSesion, que chequea todo el quilombo de abajo
+  °°°°°°2-1-1) Se chequea que no tiene sesion y se le crea una;
+  °°°°°°2-1-2) Se ejecuta el paso 3);
+
+  °°°°°°2-2-1) Se chequea que tiene pero paso mas de un minuto del ultimo mensaje;
+  °°°°°°2-2-2) Se renueva la sesión, y no se le da mas pelota hasta que ingrese otro comando;
+
+  °°°°°°2-3-1) Se chequea que tiene sesion y paso menos de un minuto del ultimo mensaje;
+  °°°°°°2-3-2) Se ejecuta el paso 3)
+  3) Se responde a lo ingresado despues del papurri bot;
+  
+  Y con respecto a abstraer la logica de actualizar la tabla de sesiones updateSessionHolder()
+  yo creo que todas las funcines que tengan que ver con watson van en el modulo de watson porque 
+  weno watsonxd, nose tu que opinas
+  */
+
+  
   if (msg.content.startsWith(`${prefix} bot`)) {
-    console.log(sessionHolder);
     // Aca va nuestro Watson Assistant
 
     /**
@@ -54,6 +81,10 @@ client.on("message", async msg => {
      * 2.2.1) if(tiempo_actual - tiempo_guardado > 1min) 2.1 else 3
      * 3)
      */
+    
+    const removeThis = "papurri bot";
+    const text = msg.content.slice(removeThis.length);
+    const temp = await weather.getTemperature();
 
     const author = msg.author.id;
     let authorSessionId = sessionHolder.findIndex(val => val.id === author);
@@ -73,9 +104,7 @@ client.on("message", async msg => {
         msg.reply("Te hacemos nueva sesion bb, arranca de cero");
         return;
       }
-      const removeThis = "papurri bot";
-      const text = msg.content.slice(removeThis.length);
-      await sendMessageToWatson(authorSession, text, msg);
+      await sendMessageToWatson(authorSession,text,msg)
     } else {
       const {
         result: { session_id }
@@ -88,11 +117,9 @@ client.on("message", async msg => {
         lastMessage: new Date() //TODO: Tomar la fecha de Discord
       };
       sessionHolder.push(sessionAuthor);
-      const removeThis = "papurri bot";
-      const text = msg.content.slice(removeThis.length);
-
       await sendMessageToWatson(sessionAuthor, text, msg);
     }
+
   }
 
   /**
