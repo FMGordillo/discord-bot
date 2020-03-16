@@ -42,20 +42,7 @@ client.on("message", async msg => {
 
   // Exit!!
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
-    /*AUTHoR: SANTU
-  ------
-  1) papurri bot <alguna frase o algo>
-  2) se ejecuta un metodo llamado actualizarSesion, que chequea todo el quilombo de abajo
-    2-1-1) Se chequea que no tiene sesion y se le crea una;
-    2-1-2) Se ejecuta el paso 3);
 
-    2-2-1) Se chequea que tiene pero paso mas de un minuto del ultimo mensaje;
-    2-2-2) Se renueva la sesión, y no se le da mas pelota hasta que ingrese otro comando;
-
-    2-3-1) Se chequea que tiene sesion y paso menos de un minuto del ultimo mensaje;
-    2-3-2) Se ejecuta el paso 3)
-  3) Se responde a lo ingresado despues del papurri bot;
-  */
   if(msg.content.startsWith("papurri clima")){
     let temp= await weather.getTemperature();
     msg.reply(`la calor: ${temp}`);
