@@ -1,9 +1,9 @@
 const axios = require('axios')
 
 const cityCode='3433955'; //CABA
-const appid='9cac08e3c5cce6b0d463cacddcaadee2';
+const apiId=process.env.WEATHER_API_ID; //me da undefined ndea porque
 const unit='metric'
-let url=`https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${appid}&units=${unit}`
+let url=`https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiId}&units=${unit}`
 
 
 async function getTemperature(){
