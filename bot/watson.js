@@ -60,3 +60,5 @@ async function updateSessionHolder(sessionHolder,msg){
 }
 
 module.exports = {assistant,sendMessageToWatson,updateSessionHolder};
+
+
