@@ -43,9 +43,17 @@ client.on("message", async msg => {
   // Exit!!
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
+  if(mesg.content.startsWith("papurri eventos")){
+    msg.reply("En produccion ahr :v");
+  }
+
   if(msg.content.startsWith("papurri clima")){
-    let temp= await weather.getTemperature();
-    msg.reply(`la calor: ${temp}`);
+    let weatherInfo= await weather.getTemperature();
+    msg.reply(`PARA QUE QUERES SABER ESO GORDITO SI ESTAS EN CUARENTENA DIOSS\n:
+              *Info*: ${weatherInfo.description}\n,
+              *Temperatura*: ${weatherInfo.temperature} C°\n,
+              *Térmica*: ${weatherInfo.feelsLike} C°\n,
+              *Humedad*: ${weatherInfo.humidity} %\n`);
     return;
   }
   
