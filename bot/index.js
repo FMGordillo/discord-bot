@@ -44,11 +44,20 @@ client.on("message", async msg => {
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
   if(msg.content.startsWith("papurri clima")){
-    let temp= await weather.getTemperature();
-    msg.reply(`la calor: ${temp}`);
+    let weatherInfo= await weather.getTemperature();
+    msg.reply(`PARA QUE QUERES SABER ESO GORDITO SI ESTAS EN CUARENTENA DIOSS\n:
+              *Descripcion*: ${weatherInfo.description},
+              *Temperatura*: ${weatherInfo.temperature} C°,
+              *Térmica*: ${weatherInfo.feelsLike} C°,
+              *Humedad*: ${weatherInfo.humidity} %`);
     return;
   }
   
+  if(msg.content.startsWith(`${prefix} tw followers`)){
+    msg.reply(`CONCEDIDO`);
+    return;
+  }
+
   if (msg.content.startsWith(`${prefix} bot`)) {
     
     const removeThis = "papurri bot";
