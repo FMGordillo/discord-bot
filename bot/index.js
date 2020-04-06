@@ -33,13 +33,6 @@ client.on("message", async msg => {
   /**
    * ESTO ES PARA LA JODA
    */
-  if (
-    new RegExp("^!p|-p|pls play").test(msg) &&
-    msg.channel.id === process.env.MAIN_TEXT_CHANNEL
-  ) {
-    msg.reply("PARA ESO EXISTE EL OTRO CANAL, MOGOLIC@");
-  }
-
   // Exit!!
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
@@ -53,10 +46,6 @@ client.on("message", async msg => {
     return;
   }
   
-  if(msg.content.startsWith(`${prefix} tw followers`)){
-    msg.reply(`CONCEDIDO`);
-    return;
-  }
 
   if (msg.content.startsWith(`${prefix} bot`)) {
     
