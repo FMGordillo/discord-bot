@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
 const client = new Discord.Client();
+const Discord = require("discord.js");
+const Sentry = require("@sentry/node");
 
 const watson = require("./watson");
 const shuffle = require("./random");
@@ -66,11 +67,13 @@ client.on("message", async (msg) => {
   if (!action || action == "" || !Object.keys(ACTIONS).includes(action)) return;
   ACTIONS[action](msg)
     .then((response) => msg.reply(response))
-    .catch((error) =>
+    .catch((error) => {
+      Sentry.captureException(error);
       msg.reply(
         `Hubo un error con el comando **${action}**:
       \`${error.message}\``
-      )
+      );
+    }
     );
 
   // if (
@@ -94,12 +97,13 @@ client.on("message", async (msg) => {
 
 client
   .login(process.env.BOT_TOKEN)
-  .then((done) => {
+  .then(() => {
     const mainChannel = client.channels.get(process.env.MAIN_TEXT_CHANNEL);
-    // console.log(mainChannel);
+    console.log(`Logged at: ${mainChannel}`);
   })
   .catch((error) => {
     console.error(`LOGIN() error`, error);
+    Sentry.captureException(error);
   });
 
 exports.talkingToBot = talkingToBot;
