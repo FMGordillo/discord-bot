@@ -23,7 +23,7 @@
     "date-fns": "2.6.0",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "ibm-watson": "^5.4.0",
     "pug": "^3.0.1"
   }
